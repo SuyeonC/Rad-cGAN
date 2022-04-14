@@ -15,4 +15,4 @@ The pre-trained Rad-cGAN model is avilable in Zenodo:
 ## Model architecture
 
 We developed a Rad-cGAN model using a cGAN framework. Whole architecture is represented following figure:
-
+<img src="images/model.png" alt="Rad-cGAN architecture" width="100%"/>
