@@ -10,3 +10,9 @@ The source code of Rad-cGAN and reference models (U-net and ConvLSTM) were writt
 
 The pre-trained Rad-cGAN model is avilable in Zenodo:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6459876.svg)](https://doi.org/10.5281/zenodo.6459876)
+
+
+## Model architecture
+
+We developed a Rad-cGAN model using a cGAN framework. Whole architecture is represented following figure:
+
