@@ -7,10 +7,14 @@
 import numpy as np
 
 def generate_data(data):
+    # data shape=(n_samples, row, col, timesteps)
     n_samples=data.shape[0]
     time_step=data.shape[3]
     row=128
     col=128
+    
+    # replace the pixel of "no echo (-127)" as 0
+    data[data<=-127]=0
     
     # for training dataset (t-30,t-20,t-10,t,1+10)   
     n_frames=4
