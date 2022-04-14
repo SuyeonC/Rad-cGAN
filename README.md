@@ -32,7 +32,13 @@ To optimize Rad-cGAN, we followed the training procedure suggested by [Isola et 
 
 First, we randomly selected samples that consisted of four consecutive radar reflectivity images (t-30, t-20, t-10 min, and t) and the image at t+10 min. 
 
-Then, we created a training sample for the discriminator by adding labels to classify whether the samples were real or fake pairs. 
+Second, we created a training sample for the discriminator by adding labels to classify whether the samples were real or fake pairs. 
 
-Next, we updated the parameters of the discriminator using the minibatch stochastic gradient descent (SGD) method for one step. Binary cross-entropy was used as a loss function, and we applied the ADAM optimizer with a learning rate of 0.0002 and momentum parameters β_1 = 0.5 and β_2 = 0.999. 
+Next, we updated the parameters of the discriminator using the minibatch stochastic gradient descent (SGD) method for one step. Binary cross-entropy was used as a loss function, and we applied the ADAM optimizer with a learning rate of 0.0002. 
+Then, we trained the generator for one step by using cGAN loss (binary cross-entropyloss + 100 * traditional pixel-wise L1 loss). Both the procedures for updating the parameters of the discriminator and generator were run simultaneously during one epoch. 
+
+The pre-trained model was trained using 600 epochs, with a batch size of 8. Also, we applied an early stopping technique which monitoring the generator loss by 100 validation samples randomly sampled from the training dataset.
+
+# Example data
+
 
