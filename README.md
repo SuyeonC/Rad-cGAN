@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Here is the cGAN-based precipitation nowcasting model, named Rad-cGAN, was trained with a radar reflectivity map of the Soyang-gang Dam region in South Korea provided by Korea Meteorological Administration (KMA) .
+Here is the cGAN-based precipitation nowcasting model, named Rad-cGAN, was trained with a radar reflectivity map of the Soyang-gang Dam region in South Korea provided by Korea Meteorological Administration (KMA).
 
 The source code of Rad-cGAN and reference models (U-net and ConvLSTM) were written using [Keras](https://keras.io/)  functional API is in the folder `model`.
 
@@ -41,4 +41,8 @@ The pre-trained model was trained using 600 epochs, with a batch size of 8. Also
 
 # Example data
 
+We trained model with a radar reflectivity map of the Soyang-gang Dam region in South Korea with a spatial domain of 128 × 128 km, spatial resolution of 1 km, and temporal resolution of 10 min provided by Korea Meteorological Administration (KMA). 
+
+The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 August 2018, 04:50 KST, when Typoon Soulik landed on the Soyang-gang Dam Basin, are available in Zenodo:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6460012.svg)](https://doi.org/10.5281/zenodo.6460012)
 
