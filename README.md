@@ -50,12 +50,12 @@ The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 Augus
 
 First, download the pre-trained model and example data from Zenodo repository: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6460012.svg)](https://doi.org/10.5281/zenodo.6460012)
 
-Next, load model by using [Keras](https://keras.io/) `load_model`
+Next, load model by using [Keras](https://keras.io/) `models.load_model`
 
 ```python3
 from keras.models import load_model
 
-model=load_model("Pre-trained_model.h5")
+model=load_model("Pre-trained model_Soyang-gang.h5")
 ```
 
 
