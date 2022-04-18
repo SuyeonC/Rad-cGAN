@@ -47,5 +47,12 @@ The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 Augus
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6460012.svg)](https://doi.org/10.5281/zenodo.6460012)
 
 
+```python3
+from keras.models import load_model
+ 
+model = load_model('Pre-trained model_Soyang-gang.h5')
+```
+
+
 
 
