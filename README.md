@@ -50,7 +50,7 @@ The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 Augus
 
 To use our model using example data, the following files required.
 
-Github repository:
+GitHub repository:
 * `model/generate_data.py`- function to transform data shape into trainable
 * `model/minmax_scaler.npy`- (min, max) of train data (i.e., JJA of 2014~2017 at Soyang-gang Dam Basin)
 
