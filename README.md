@@ -46,7 +46,17 @@ We trained model with a radar reflectivity map of the Soyang-gang Dam region in 
 The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 August 2018, 04:50 KST, when Typoon Soulik landed on the Soyang-gang Dam Basin, are available in Zenodo:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6460012.svg)](https://doi.org/10.5281/zenodo.6460012)
 
+## example run
 
+To use our model using example data, the following files required.
+Github repository:
+* `model/generate_data.py`- function to transform data shape into trainable
+* `model/minmax_scaler.npy`- (min, max) of train data (i.e., JJA of 2014~2017 at Soyang-gang Dam Basin)
+Zenodo repository:
+* `example.zip`- example data(.npy) of Typhoon Soulik event
+* `Pre-trained model_Soyang-gang.h5`- pretrained model for Soyang-gang Dam Basin
+
+First, using `keras.models.load_model` function to load pre-trained model
 ```python3
 from keras.models import load_model
  
