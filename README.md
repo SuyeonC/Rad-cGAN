@@ -58,10 +58,15 @@ Zenodo repository:
 
 First, transform the example data to trainable shape for our model
 ```python3
-import numpy as np
 import generate_data
+import numpy as np
 
 raw_data=np.load('example/201808240250.npy')
+min_max=np.load('minmax_scaler.npy')
+
+# input data shape of function "generate_data" : (no. of samples, rows, cols, time_steps)
+# if the raw data consists of one sample, "no. of samples" must be filled with new axis
+train_in,train_out=generate_data.generate_data(raw_data[np.newaxis,:],min_max[0],min_max[1])
 ```
 
 Second, using `keras.models.load_model` function to load pre-trained model
