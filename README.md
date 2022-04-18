@@ -49,9 +49,11 @@ The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 Augus
 ## Example run
 
 To use our model using example data, the following files required.
+
 Github repository:
 * `model/generate_data.py`- function to transform data shape into trainable
 * `model/minmax_scaler.npy`- (min, max) of train data (i.e., JJA of 2014~2017 at Soyang-gang Dam Basin)
+
 Zenodo repository:
 * `example.zip`- example data(.npy) of Typhoon Soulik event
 * `Pre-trained model_Soyang-gang.h5`- pretrained model for Soyang-gang Dam Basin
