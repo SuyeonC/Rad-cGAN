@@ -48,7 +48,9 @@ The example data from 24 August 2018, 02:50 KST(Korea Standard Time) to 24 Augus
 
 ## Example run
 
-To use our model using example data, the following files required.
+To use our model using example data, the following prerequisites.
+* Python 3.8+
+* Keras 2.3+
 
 GitHub repository:
 * `model/generate_data.py`- function to transform data shape into trainable
@@ -68,7 +70,7 @@ min_max=np.load('minmax_scaler.npy')
 
 # input data shape of function "generate_data" : (no. of samples, rows, cols, time_steps)
 # if the raw data consists of one sample, "no. of samples" must be filled with new axis
-train_in,train_out=generate_data.generate_data(raw_data[np.newaxis,:],min_max[0],min_max[1])
+example_in,example_out=generate_data.generate_data(raw_data[np.newaxis,:],min_max[0],min_max[1])
 ```
 
 Second, using `keras.models.load_model` function to load pre-trained model
@@ -78,6 +80,10 @@ from keras.models import load_model
 model = load_model('Pre-trained model_Soyang-gang.h5')
 ```
 
-
+Finally, using `predict` function to generate prediction of 10-min lead time from `example_in`
+```python3
+# prediction shape = (no. of samples, rows, cols, 1)
+prediction=model.predict(example_in) 
+```
 
 
