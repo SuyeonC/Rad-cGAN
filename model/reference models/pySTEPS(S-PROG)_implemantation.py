@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,11 +14,7 @@ from pysteps.utils import conversion, dimension, transformation
 from pysteps.visualization import plot_precip_field
 from pysteps.postprocessing import ensemblestats
 
-
-# In[2]:
-
-
-#rain_inpu
+# generate input data(unit:dBR) converted from raw data(dBZ)
 def generate_data(data):
     n_samples=data.shape[0]
     time_step=4
@@ -51,9 +45,7 @@ def generate_data(data):
     return movie_in, movie_out
 
 
-# In[3]:
-
-
+# calculate rain rate R(mm/hr) from dBR
 def inverse_dB(data):
 
     threshold=-10
@@ -66,117 +58,44 @@ def inverse_dB(data):
     return R
 
 
-# In[5]:
+#### run for samples ###
+path_data='path of data downloaded'
 
-
-#### run for all samples ###
-from IPython.display import clear_output
-import datetime
-path_result='/home/suyeonc/convlstm/rainfall/codes/results/pysteps_sprog/'
-path_data='/home/suyeonc/rainpredict/data/train_data/'
-a=[]
-jj=27905
-while True:
-    try:
-        for l in [8]:
-            n_leadtimes=l
-            timestep=10
-            lead_time=l*timestep
-            prediction=np.zeros((1,128,128))
-            g_truth=np.zeros((1,128,128))
-            
-
-            for j in range(jj,len(dir_data)):
-                
-                path_test=path_data+dir_data[j] 
-                after=dir_data[j][:-4]
-                after_name=path_data+dir_data[j]
-                after=datetime.datetime.strptime(after,'%Y%m%d%H%M')
-                before=after-datetime.timedelta(minutes=lead_time-10)
-                before=before.strftime('%Y%m%d%H%M')
-                before_name=path_data+before+'.npy'
-                if os.path.isfile(before_name)==True:
-                    data_b=np.load(before_name)
-                    data_a=np.load(after_name)
-                    before_in,before_out=generate_data(data_b[np.newaxis,:])
-                    after_in,after_out=generate_data(data_a[np.newaxis,:])       
-        
-                    R=before_in[0,:,:,:]
-                    V = dense_lucaskanade(R)
-
-            ## setting: default & example from manual
-            #n_ens_members = 20 
-            #seed = 24
-    
-            ## nowcast
-                    nowcast_method = nowcasts.get_method("sprog")
-                    R_f = nowcast_method(
-                        R[:, :, :],
-                        V,
-                        n_leadtimes,
-                        n_cascade_levels=6,
-                        R_thr=-10.0,
-                        )
-                    clear_output(wait=True)
-                    print(j)
-    
-            # Back-transform to rain rates
-                    #R_f=inverse_dB(R_f)
-                    #R_t=inverse_dB(after_out)
-            
-                    #prediction=np.append(prediction,R_f[np.newaxis,-1,:,:],axis=0)
-                    #g_truth=np.append(g_truth,R_t[0,:,:,:],axis=0)
-                                
-    # save the ensemble mean
-            #predict_out=prediction[1:,:,:]
-            #true_out=g_truth[1:,:,:]
-        
-            #filename_p=path_result+'predict1_'+str(lead_time)+'min'
-            #filename_o=path_result+'observ1_'+str(lead_time)+'min'
-        
-            #np.save(filename_p,predict_out)
-            #np.save(filename_o,true_out)
-            #print("saved!")
-                
-            
-        break
-        
-        
-    except:
-        
-        jj=j
-        a=np.append(a,j+len(a))
-        dir_data=np.delete(dir_data,j,axis=0)
-        np.save(path_result+'removed_index_sprog1'+str(l)+'.npy',a)
-
-
-# In[6]:
-
-
-n_leadtimes=l
+n_leadtimes=9 # predict for lead time of 90 min
 timestep=10
-lead_time=l*timestep
+lead_time=n_leadtimes*timestep
 
-data_b=np.load(path_data)
-data_in,data_out=generate_data(data_b[np.newaxis,:])
+# define empty arrays for prediction and observation
+prediction=np.zeros((1,128,128))
+observation=np.zeros((1,128,128))
+
+
+raw_data=np.load(path_data)
+data_in,data_out=generate_data(raw_data[np.newaxis,:])
    
-        
-R=data_in[0,:,:,:]
-V = dense_lucaskanade(R)
+for i in range(len(raw_data)):        
+    R=data_in[i,:,:,:]
+    V = dense_lucaskanade(R)
             
-## nowcast
-nowcast_method = nowcasts.get_method("sprog")
-R_f = nowcast_method(
-        R[:, :, :],
-        V,
-        n_leadtimes,
-        n_cascade_levels=6,
-        R_thr=-10.0,
-        )
-
-R_f=inverse_dB(R_f)
-R_t=inverse_dB(data_out)         
-
-prediction=R_f[-1,:,:]
-observation=R_t[0,:,:,:]
+    # nowcast
+    nowcast_method = nowcasts.get_method("sprog")
+    R_f = nowcast_method(
+            R[:, :, :],
+            V,
+            n_leadtimes,
+            n_cascade_levels=6,
+            R_thr=-10.0,
+            )
+    
+    # transform dBR results to R(mm/hr)
+    R_f=inverse_dB(R_f)
+    R_t=inverse_dB(data_out[i])  
+    
+    # add to arrays for prediction and observation
+    prediction=np.append(prediction,R_f[np.newaxis,-1,:,:],axis=0)
+    observation=np.append(observation,R_t[0,:,:,:],axis=0)
+   
+# remove first empty index from arrays for prediction and observation
+prediction=predictino[1:,:,:]
+observation=observation[1:,:,:]
 
