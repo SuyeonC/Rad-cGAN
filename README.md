@@ -6,10 +6,10 @@
 
 Here is the cGAN-based precipitation nowcasting model, named Rad-cGAN, was trained with a radar reflectivity map of the Soyang-gang Dam region in South Korea provided by Korea Meteorological Administration (KMA).
 
-The source code of Rad-cGAN and reference models (U-net and ConvLSTM) were written using [Keras](https://keras.io/)  functional API is in the folder `model`.
+The source code of reference models (U-net and ConvLSTM) were written using [Keras](https://keras.io/)  functional API is in the folder `model`.
 
-The pre-trained Rad-cGAN model is available in Zenodo:
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6460012.svg)](https://doi.org/10.5281/zenodo.6460012)
+The source code and pre-trained Rad-cGAN model is available in Zenodo:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6650722.svg)](https://doi.org/10.5281/zenodo.6650722)
 
 
 ## Model architecture
